@@ -1,6 +1,5 @@
 import pandas
 import streamlit as st
-import accueil
 import genreFonction as gf
 
 
