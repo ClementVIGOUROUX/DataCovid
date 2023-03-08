@@ -7,7 +7,6 @@ import phaseFonction as pf
 st.title("Petit titre et c'est ok")
 tab1, tab2 = st.tabs(["Essais d'Observation", "Essais Aleatoire "])
 
-accueil.sidebar()
 
 with tab1 :
     option = pf.find_Different_Type_Phase('ClinicalTrials_ObsStudies')

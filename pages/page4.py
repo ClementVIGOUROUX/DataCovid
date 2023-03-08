@@ -4,10 +4,6 @@ import accueil
 import genreFonction as gf
 
 
-accueil.sidebar()
-
-
-
 st.title("Petit titre et c'est ok")
 tab1, tab2 = st.tabs(["Essais d'Observation", "Essais Aleatoire "])
 
