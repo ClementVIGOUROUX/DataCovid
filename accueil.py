@@ -2,7 +2,7 @@
 import pandas
 import streamlit as st
 
-
+st.write("je vous aime pas")
 def sidebar():
     with st.sidebar:
         st.title("Mettez votre fichier excel")
@@ -33,4 +33,5 @@ fichier = pandas.read_excel('exel.xlsx', sheet_name='3 - Publications_ObsStudies
 st.dataframe(fichier)
 
 st.text("et la un tableau")
+st.text("test de commit")
 #st.table(fichier)
