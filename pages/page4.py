@@ -1,11 +1,6 @@
 import pandas
 import streamlit as st
-import accueil
 import genreFonction as gf
-
-
-accueil.sidebar()
-
 
 
 st.title("Petit titre et c'est ok")
