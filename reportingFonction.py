@@ -1,11 +1,10 @@
 import pymongo
 import pandas
-
+import connexionDB
 
 
 def count_Collection(col):
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
+    db = connexionDB.connexionDB()["sae"]
     mycol = mydb[col]
     total = mycol.count_documents({})
     return total
@@ -13,9 +12,8 @@ def count_Collection(col):
 
 def nb_par_Mois(col):
     data =[]
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
+    db = connexionDB.connexionDB()["sae"]
+    mycol = db[col]
     pipeline = [
     {"$project":{
         "month":{"$month":{"$dateFromString": {"dateString": "$date","format": "%m/%d/%Y"}}},
