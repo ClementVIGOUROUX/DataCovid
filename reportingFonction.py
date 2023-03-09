@@ -10,8 +10,6 @@ def count_Collection(col):
 
 def nb_par_Mois(col):
     data =[]
-    db = cdb.connexionDB()
-    mycol = db[col]
     pipeline = [
     {"$project":{
         "month":{"$month":{"$dateFromString": {"dateString": "$date","format": "%m/%d/%Y"}}},
@@ -22,7 +20,7 @@ def nb_par_Mois(col):
             "_id":{"annee":"$year","mois":"$month"},
             "count":{"$sum":1}
     }}]
-    dataframe = mycol.aggregate(pipeline)
+    dataframe = col.aggregate(pipeline)
     for doc in dataframe:
         data.append(doc)
     return data
