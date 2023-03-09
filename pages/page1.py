@@ -2,8 +2,8 @@ import pandas
 import streamlit as st
 import reportingFonction as rF
 import plotly.express as px
-import plotly.figure_factory as ff
-col1, col2= st.columns(2)
+
+col1, col2 , col3= st.columns(3)
 
 with st.container():
     with col1:
@@ -12,21 +12,26 @@ with st.container():
         st.header("Nombre d'essai : "+str(total1+total2))
         st.subheader("ObsStudies : "+str(total1))
         st.subheader("RandTrials : "+str(total2))
-
     with col2:
+        st.write()
+    with col3:
         total3 = rF.count_Collection("Publications_ObsStudies")
         total4 = rF.count_Collection("Publications_RandTrials")
-        st.header("Nombre d'essai : "+str(total3 + total4))
+        st.header("Nombre de Publication : "+str(total3 + total4))
         st.subheader("ObsStudies : "+str(total3))
         st.subheader("RandTrials : "+str(total4))
 
-nbListe = [total1,total2,total3,total4]
-nomListe = ["ClinicalTrials_ObsStudies","ClinicalTrials_RandTrials","Publications_ObsStudies","Publications_RandTrials"]
+col4, col5 , col6= st.columns(3)
 
-dataNb = pandas.DataFrame(nbListe,nomListe)
-st.write(dataNb)
-fig = px.pie(dataNb)
-st.plotly_chart(fig)
+with st.container():
+    with col4:
+        nbListe = [total1,total2,total3,total4]
+        nomListe = ["ClinicalTrials_ObsStudies","ClinicalTrials_RandTrials","Publications_ObsStudies","Publications_RandTrials"]
+        d = {'value':nomListe,'nb':nbListe}
+        dataNb = pandas.DataFrame(d)
+        fig = px.pie(dataNb,values='nb',names='value',width=500, height=400)
+        fig.update_layout(legend=dict(orientation="h",yanchor="bottom",y=-0.5,xanchor="right",x=0.5))
+        st.plotly_chart(fig)
 
 with st.container():
     data = rF.nb_par_Mois("ClinicalTrials_ObsStudies")
