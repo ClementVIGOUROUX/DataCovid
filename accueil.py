@@ -18,7 +18,7 @@ def sidebar():
 
 st.balloons()
 st.snow()
-# Title
+# Title 1
 st.title("C'est une dinguerie ce qu'on peut faire!!!")
 
 sidebar()
