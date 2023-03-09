@@ -21,16 +21,22 @@ with st.container():
         st.subheader("ObsStudies : "+str(total3))
         st.subheader("RandTrials : "+str(total4))
 
-col4, col5 , col6= st.columns(3)
+col4, col5, col6 = st.columns(3)
 
 with st.container():
     with col4:
+
         nbListe = [total1,total2,total3,total4]
         nomListe = ["ClinicalTrials_ObsStudies","ClinicalTrials_RandTrials","Publications_ObsStudies","Publications_RandTrials"]
         d = {'value':nomListe,'nb':nbListe}
         dataNb = pandas.DataFrame(d)
         fig = px.pie(dataNb,values='nb',names='value',width=500, height=400)
         fig.update_layout(legend=dict(orientation="h",yanchor="bottom",y=-0.5,xanchor="right",x=0.5))
+        st.plotly_chart(fig)
+    with col5:
+        st.write()
+    with col6:
+        fig = px.histogram(dataNb, y='nb', x='value',width=500, height=400)
         st.plotly_chart(fig)
 
 with st.container():
