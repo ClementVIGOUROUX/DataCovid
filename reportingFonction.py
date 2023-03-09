@@ -1,18 +1,16 @@
 import pymongo
 import pandas
-import connexionDB
+import connexionDB as cdb
 
 
 def count_Collection(col):
-    db = connexionDB.connexionDB()["sae"]
-    mycol = mydb[col]
-    total = mycol.count_documents({})
+    total = col.count_documents({})
     return total
 
 
 def nb_par_Mois(col):
     data =[]
-    db = connexionDB.connexionDB()["sae"]
+    db = cdb.connexionDB()
     mycol = db[col]
     pipeline = [
     {"$project":{
@@ -29,13 +27,16 @@ def nb_par_Mois(col):
         data.append(doc)
     return data
 
-data = nb_par_Mois("ClinicalTrials_ObsStudies")
+#Main
+db = cdb.connexionDB()
 
+#Acces aux collections
+cts = db.ClinicalTrials_ObsStudies
+ctt = db.ClinicalTrials_RandTrials
+pbs = db.Publications_ObsStudies
+pbt = db.Publications_RandTrials
 
-
-print(data)
-
-
+print(count_Collection(cts))
 
 
 

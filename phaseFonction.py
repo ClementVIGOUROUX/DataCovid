@@ -3,9 +3,7 @@ import pandas
 import connexionDB
 def find_All(col):
     list = []
-    db = connexionDB.connexionDB()["sae"]
-    mycol = db[col]
-    for x in mycol.find():
+    for x in col.find():
         list.append(x)
     all = pandas.DataFrame(list)
     return all
@@ -13,19 +11,15 @@ def find_All(col):
 #permet de recuperer les differents types de phases dans une collection
 def find_Different_Type_Phase(col):
     list = []
-    db = connexionDB.connexionDB()["sae"]
-    mycol = db[col]
-    for x in mycol.distinct('phase'):
+    for x in col.distinct('phase'):
         list.append(x)
     return list
 
 #permet de recuperer les phase avec un filtre
 def find_Phase_Filtre(col,param):
     list = []
-    db = connexionDB.connexionDB()["sae"]
-    mycol = db[col]
     myquery = {'phase': {'$in': param}}
-    mydoc = mycol.find(myquery)
+    mydoc = col.find(myquery)
     for x in mydoc:
         list.append(x)
     all = pandas.DataFrame(list)
