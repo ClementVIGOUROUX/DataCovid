@@ -1,10 +1,10 @@
 import pymongo
 import pandas
+import connexionDB
 def find_All(col):
     list = []
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
+    db = connexionDB.connexionDB()["sae"]
+    mycol = db[col]
     for x in mycol.find():
         list.append(x)
     all = pandas.DataFrame(list)
@@ -13,9 +13,8 @@ def find_All(col):
 #permet de recuperer les differents types de phases dans une collection
 def find_Different_Type_Phase(col):
     list = []
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
+    db = connexionDB.connexionDB()["sae"]
+    mycol = db[col]
     for x in mycol.distinct('phase'):
         list.append(x)
     return list
@@ -23,9 +22,8 @@ def find_Different_Type_Phase(col):
 #permet de recuperer les phase avec un filtre
 def find_Phase_Filtre(col,param):
     list = []
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
+    db = connexionDB.connexionDB()["sae"]
+    mycol = db[col]
     myquery = {'phase': {'$in': param}}
     mydoc = mycol.find(myquery)
     for x in mydoc:
@@ -48,9 +46,8 @@ def find_All_Phase(col,list):
 
 def count_all_Phase(col,list):
     dict = {}
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
+    db = connexionDB.connexionDB()["sae"]
+    mycol = db[col]
     for i in range(len(list)):
         dict[list[i]] = mycol.count_documents({'phase':list[i]})
     return dict
