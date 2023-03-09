@@ -25,7 +25,6 @@ col4, col5, col6 = st.columns(3)
 
 with st.container():
     with col4:
-
         nbListe = [total1,total2,total3,total4]
         nomListe = ["ClinicalTrials_ObsStudies","ClinicalTrials_RandTrials","Publications_ObsStudies","Publications_RandTrials"]
         d = {'value':nomListe,'nb':nbListe}
@@ -34,10 +33,22 @@ with st.container():
         fig.update_layout(legend=dict(orientation="h",yanchor="bottom",y=-0.5,xanchor="right",x=0.5))
         st.plotly_chart(fig)
     with col5:
-        st.write()
+        tab1, tab2 = st.tabs(["Essais d'Observation", "Essais Aleatoire "])
+        with tab1:
+            data = rF.nb_publisher_registry("ClinicalTrials_ObsStudies")
+            dataFrame = pandas.DataFrame(data)
+            dataFrame = dataFrame.head()
+            fig = px.bar(dataFrame, y='nb', x='_id')
+            st.plotly_chart(fig)
+        with tab2:
+            data2 = rF.nb_publisher_registry("ClinicalTrials_RandTrials")
+            dataFrame2 = pandas.DataFrame(data2)
+            dataFrame2 = dataFrame2.head()
+            fig2 =px.bar(dataFrame2,y='nb',x='_id')
+            st.plotly_chart(fig2)
+
     with col6:
-        fig = px.histogram(dataNb, y='nb', x='value',width=500, height=400)
-        st.plotly_chart(fig)
+        st.write("")
 
 with st.container():
     data = rF.nb_par_Mois("ClinicalTrials_ObsStudies")

@@ -31,10 +31,20 @@ def nb_par_Mois(col):
         data.append(doc)
     return data
 
-data = nb_par_Mois("ClinicalTrials_ObsStudies")
+
+def nb_publisher_registry(col):
+    data = []
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["Sae"]
+    mycol = mydb[col]
+    pipeline = [{'$group': {'_id': '$registry', 'nb': {'$sum': 1}}}, {'$sort': {'nb': -1}}]
+    dataframe = mycol.aggregate(pipeline)
+    for doc in dataframe:
+        data.append(doc)
+    return data
 
 
-
+data = nb_publisher_registry("ClinicalTrials_ObsStudies")
 print(data)
 
 
