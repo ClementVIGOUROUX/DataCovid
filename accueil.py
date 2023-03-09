@@ -4,7 +4,7 @@ import streamlit as st
 import insererFonction as iF
 
 
-# Title
+# Title 1
 st.title("C'est une dinguerie ce qu'on peut faire!!!")
 
 with st.sidebar:
