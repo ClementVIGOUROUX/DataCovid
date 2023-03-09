@@ -3,19 +3,31 @@ import streamlit as st
 import reportingFonction as rF
 import plotly.express as px
 import plotly.figure_factory as ff
+import connexionDB as cdb
+
+#Main
+db = cdb.connexionDB()
+
+#Acces aux collections
+cts = db.ClinicalTrials_ObsStudies
+ctt = db.ClinicalTrials_RandTrials
+pbs = db.Publications_ObsStudies
+pbt = db.Publications_RandTrials
+
+
 col1, col2= st.columns(2)
 
 with st.container():
     with col1:
-        total1 = rF.count_Collection("ClinicalTrials_ObsStudies")
-        total2 = rF.count_Collection("ClinicalTrials_RandTrials")
+        total1 = rF.count_Collection(cts)
+        total2 = rF.count_Collection(ctt)
         st.header("Nombre d'essai : "+str(total1+total2))
         st.subheader("ObsStudies : "+str(total1))
         st.subheader("RandTrials : "+str(total2))
 
     with col2:
-        total3 = rF.count_Collection("Publications_ObsStudies")
-        total4 = rF.count_Collection("Publications_RandTrials")
+        total3 = rF.count_Collection(pbs)
+        total4 = rF.count_Collection(pbt)
         st.header("Nombre d'essai : "+str(total3 + total4))
         st.subheader("ObsStudies : "+str(total3))
         st.subheader("RandTrials : "+str(total4))
@@ -29,7 +41,7 @@ fig = px.pie(dataNb)
 st.plotly_chart(fig)
 
 with st.container():
-    data = rF.nb_par_Mois("ClinicalTrials_ObsStudies")
+    data = rF.nb_par_Mois(cts)
     d = pandas.DataFrame(data)
     count = []
     boup = []
