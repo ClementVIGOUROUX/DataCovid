@@ -46,9 +46,20 @@ with st.container():
             dataFrame2 = dataFrame2.head()
             fig2 =px.bar(dataFrame2,y='nb',x='_id')
             st.plotly_chart(fig2)
-
     with col6:
-        st.write("")
+        tab1, tab2 = st.tabs(["Publications_ObsStudies","Publications_RandTrials"])
+        with tab1:
+            data = rF.nb_publisher_venue("Publications_ObsStudies")
+            dataFrame = pandas.DataFrame(data)
+            dataFrame = dataFrame.head()
+            fig = px.bar(dataFrame, y='nb', x='_id')
+            st.plotly_chart(fig)
+        with tab2:
+            data2 = rF.nb_publisher_venue("Publications_RandTrials")
+            dataFrame2 = pandas.DataFrame(data2)
+            dataFrame2 = dataFrame2.head()
+            fig2 =px.bar(dataFrame2,y='nb',x='_id')
+            st.plotly_chart(fig2)
 
 with st.container():
     data = rF.nb_par_Mois("ClinicalTrials_ObsStudies")
