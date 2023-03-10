@@ -52,7 +52,16 @@ with st.container():
             st.plotly_chart(fig2)
 
 with st.container():
-    data = rF.nb_par_Mois("ClinicalTrials_ObsStudies")
+    nbListe = [total1, total2, total3, total4]
+    nomListe = ["ClinicalTrials_ObsStudies", "ClinicalTrials_RandTrials", "Publications_ObsStudies",
+                "Publications_RandTrials"]
+    d = {'value': nomListe, 'nb': nbListe}
+    dataNb = pandas.DataFrame(d)
+    fig = px.pie(dataNb, values='nb', names='value', width=500, height=400)
+    fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=-0.5, xanchor="right", x=0.5))
+    st.plotly_chart(fig)
+
+    """data = rF.nb_par_Mois("ClinicalTrials_ObsStudies")
     d = pandas.DataFrame(data)
     count = []
     boup = []
@@ -67,4 +76,4 @@ with st.container():
         final.append(date)
     data = pandas.DataFrame({'date':final,'nb':count})
     g = data.set_index('date')
-    st.area_chart(g)
+    st.area_chart(g)"""
