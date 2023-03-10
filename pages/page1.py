@@ -3,7 +3,7 @@ import streamlit as st
 import reportingFonction as rF
 import plotly.express as px
 
-col1, col2 , col3= st.columns(3)
+col1, col2 ,= st.columns(2)
 
 with st.container():
     with col1:
@@ -13,39 +13,29 @@ with st.container():
         st.subheader("ObsStudies : "+str(total1))
         st.subheader("RandTrials : "+str(total2))
     with col2:
-        st.write()
-    with col3:
-        total3 = rF.count_Collection("Publications_ObsStudies")
-        total4 = rF.count_Collection("Publications_RandTrials")
-        st.header("Nombre de Publication : "+str(total3 + total4))
-        st.subheader("ObsStudies : "+str(total3))
-        st.subheader("RandTrials : "+str(total4))
-
-col4, col5, col6 = st.columns(3)
-
-with st.container():
-    with col4:
-        nbListe = [total1,total2,total3,total4]
-        nomListe = ["ClinicalTrials_ObsStudies","ClinicalTrials_RandTrials","Publications_ObsStudies","Publications_RandTrials"]
-        d = {'value':nomListe,'nb':nbListe}
-        dataNb = pandas.DataFrame(d)
-        fig = px.pie(dataNb,values='nb',names='value',width=500, height=400)
-        fig.update_layout(legend=dict(orientation="h",yanchor="bottom",y=-0.5,xanchor="right",x=0.5))
-        st.plotly_chart(fig)
-    with col5:
         tab1, tab2 = st.tabs(["Essais d'Observation", "Essais Aleatoire "])
         with tab1:
             data = rF.nb_publisher_registry("ClinicalTrials_ObsStudies")
             dataFrame = pandas.DataFrame(data)
             dataFrame = dataFrame.head()
             fig = px.bar(dataFrame, y='nb', x='_id')
+
             st.plotly_chart(fig)
         with tab2:
             data2 = rF.nb_publisher_registry("ClinicalTrials_RandTrials")
             dataFrame2 = pandas.DataFrame(data2)
             dataFrame2 = dataFrame2.head()
-            fig2 =px.bar(dataFrame2,y='nb',x='_id')
+            fig2 = px.bar(dataFrame2, y='nb', x='_id')
             st.plotly_chart(fig2)
+col4,col6 = st.columns(2)
+
+with st.container():
+    with col4:
+        total3 = rF.count_Collection("Publications_ObsStudies")
+        total4 = rF.count_Collection("Publications_RandTrials")
+        st.header("Nombre de Publication : " + str(total3 + total4))
+        st.subheader("ObsStudies : " + str(total3))
+        st.subheader("RandTrials : " + str(total4))
     with col6:
         tab1, tab2 = st.tabs(["Publications_ObsStudies","Publications_RandTrials"])
         with tab1:
