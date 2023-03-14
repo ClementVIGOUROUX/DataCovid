@@ -16,8 +16,6 @@ def sidebar():
                else:
                     st.error("veuillez rentrer un fichier excel")
 
-st.balloons()
-st.snow()
 # Title
 st.title("C'est une dinguerie ce qu'on peut faire!!!")
 
