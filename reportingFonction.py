@@ -27,6 +27,28 @@ def nb_par_Mois(col):
         data.append(doc)
     return data
 
+
+def nb_publisher_registry(col):
+    data = []
+    db = cdb.connexionDB()
+    mycol = db[col]
+    pipeline = [{'$group': {'_id': '$registry', 'nb': {'$sum': 1}}}, {'$sort': {'nb': -1}}]
+    dataframe = mycol.aggregate(pipeline)
+    for doc in dataframe:
+        data.append(doc)
+    return data
+
+
+def nb_publisher_venue(col):
+    data = []
+    db = cdb.connexionDB()
+    mycol = db[col]
+    pipeline = [{'$group': {'_id': '$venue', 'nb': {'$sum': 1}}}, {'$sort': {'nb': -1}}]
+    dataframe = mycol.aggregate(pipeline)
+    for doc in dataframe:
+        data.append(doc)
+    return data
+
 #Main
 db = cdb.connexionDB()
 
@@ -37,6 +59,15 @@ pbs = db.Publications_ObsStudies
 pbt = db.Publications_RandTrials
 
 print(count_Collection(cts))
+
+
+
+
+
+
+
+
+
 
 
 

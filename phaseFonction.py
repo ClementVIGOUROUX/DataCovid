@@ -40,8 +40,6 @@ def find_All_Phase(col,list):
 
 def count_all_Phase(col,list):
     dict = {}
-    db = connexionDB.connexionDB()["sae"]
-    mycol = db[col]
     for i in range(len(list)):
-        dict[list[i]] = mycol.count_documents({'phase':list[i]})
+        dict[list[i]] = col.count_documents({'phase':list[i]})
     return dict
