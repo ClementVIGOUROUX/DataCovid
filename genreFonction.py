@@ -46,7 +46,7 @@ ctt = db.ClinicalTrials_RandTrials
 pbs = db.Publications_ObsStudies
 pbt = db.Publications_RandTrials
 
-#print(find_Different_Type_Genre(cts))
+print(find_Different_Type_Genre(cts))
 #print(find_All(pbt))
 #print(find_Genre_Filtre(cts, ["Female"]))
 #print(find_All_Genre(cts, ["Male"]))
