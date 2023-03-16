@@ -1,13 +1,9 @@
 import pandas
-import pymongo
-
+import connexionDB
+import json
 
 def verif(file):
-    if (file.name[-4:] == 'xlsx'):
-        return True
-    else:
-        return False
-
+    return file.name[-4:] == 'xlsx'
 
 def fichier_toJson(file):
     dict={}
@@ -18,21 +14,17 @@ def fichier_toJson(file):
         dict[pages[i]] = fileJ
     return dict
 
-""""
-col = ["ClinicalTrials_ObsStudies", "ClinicalTrials_RandTrials", "Publications_ObsStudies","Publications_RandTrials"]
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    for i in range(len(col)):
-        mycol = mydb[col[i]]
-        print(col[i])
-        mycol.insert_many(dict[col[i]])"""
+def inserer(dict):
+    db = connexionDB.connexionDB()
+    collections = [
+        ("ClinicalTrials_ObsStudies", db.ClinicalTrials_ObsStudies),
+        ("ClinicalTrials_RandTrials", db.ClinicalTrials_RandTrials),
+        ("Publications_ObsStudies", db.Publications_ObsStudies),
+        ("Publications_RandTrials", db.Publications_RandTrials)
+    ]
 
-
-
-def inserer (dict):
-    col = ["ClinicalTrials_ObsStudies", "ClinicalTrials_RandTrials", "Publications_ObsStudies","Publications_RandTrials"]
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col[0]]
-    print(col[0])
-    mycol.insert_many(dict["ClinicalTrials_ObsStudies"])
+    for page, collection in collections:
+        if collection.count_documents({}) == 0:
+            data = json.loads(dict[page])
+            collection.insert_many(data)
+            return
