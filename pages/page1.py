@@ -27,7 +27,7 @@ with st.container():
     with col2:
         tab1, tab2 = st.tabs(["Essais d'Observation", "Essais Aleatoire "])
         with tab1:
-            data = rF.nb_publisher_registry("ClinicalTrials_ObsStudies")
+            data = rF.nb_publisher_registry(cts)
             dataFrame = pandas.DataFrame(data)
             dataFrame = dataFrame.head()
             fig = px.bar(dataFrame, y='nb', x='_id')
@@ -35,7 +35,7 @@ with st.container():
             st.plotly_chart(fig)
 
         with tab2:
-            data2 = rF.nb_publisher_registry("ClinicalTrials_RandTrials")
+            data2 = rF.nb_publisher_registry(ctt)
             dataFrame2 = pandas.DataFrame(data2)
             dataFrame2 = dataFrame2.head()
             fig2 = px.bar(dataFrame2, y='nb', x='_id')
@@ -60,14 +60,14 @@ with st.container():
         tab1, tab2 = st.tabs(["Publications_ObsStudies","Publications_RandTrials"])
 
         with tab1:
-            data = rF.nb_publisher_venue("Publications_ObsStudies")
+            data = rF.nb_publisher_venue(pbs)
             dataFrame = pandas.DataFrame(data)
             dataFrame = dataFrame.head()
             fig = px.bar(dataFrame, y='nb', x='_id')
             st.plotly_chart(fig)
 
         with tab2:
-            data2 = rF.nb_publisher_venue("Publications_RandTrials")
+            data2 = rF.nb_publisher_venue(pbt)
             dataFrame2 = pandas.DataFrame(data2)
             dataFrame2 = dataFrame2.head()
             fig2 =px.bar(dataFrame2,y='nb',x='_id')
@@ -95,7 +95,7 @@ with st.container():
         st.plotly_chart(fig3)
 
 
-data = rF.nb_par_Mois("ClinicalTrials_ObsStudies")
+data = rF.nb_par_Mois(cts)
 d = pandas.DataFrame(data)
 count = []
 boup = []
