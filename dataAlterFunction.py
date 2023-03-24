@@ -19,3 +19,87 @@ def alterCircleToCommas():
         ]
     )
     return(result)
+
+def alterDateCTS():
+    db = cdb.connexionDB()
+    collection = db.ClinicalTrials_ObsStudies
+    collection.update_many(
+        {},
+        [
+            {
+                "$set": {
+                    "dateInserted": {
+                        "$toDate": "$dateInserted"}
+                }
+            },
+            {
+                "$set": {
+                    "date": {
+                        "$toDate": "$date"}
+                }
+            }
+        ]
+    )
+
+def alterDateCTT():
+    db = cdb.connexionDB()
+    collection = db.ClinicalTrials_RandTrials
+    collection.update_many(
+        {},
+        [
+            {
+    "$set": {
+        "dateInserted": {
+    "$toDate": "$dateInserted"}
+    }
+    },
+    {
+    "$set": {
+        "date": {
+    "$toDate": "$date"}
+    }
+    }
+    ]
+    )
+
+def alterDatePBS():
+    db = cdb.connexionDB()
+    collection = db.Publications_ObsStudies
+    collection.update_many(
+      {},
+      [
+        {
+          "$set": {
+            "dateInserted": {
+             "$toDate": "$dateInserted"}
+            }
+          },
+          {
+          "$set": {
+            "datePublished": {
+             "$toDate": "$datePublished"}
+            }
+          }
+      ]
+    )
+
+def alterDatePBT():
+    db = cdb.connexionDB()
+    collection = db.Publications_ObsStudies
+    collection.update_many(
+        {},
+        [
+            {
+    "$set": {
+        "dateInserted": {
+    "$toDate": "$dateInserted"}
+    }
+    },
+    {
+    "$set": {
+        "datePublished": {
+    "$toDate": "$datePublished"}
+    }
+    }
+    ]
+    )
