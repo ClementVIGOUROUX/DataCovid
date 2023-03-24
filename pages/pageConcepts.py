@@ -10,21 +10,19 @@ st.title("Concepts (colonne concepts) les plus fréquents dans les publications 
 db = cdb.connexionDB()
 
 #Acces aux collections
-cts = db.ClinicalTrials_ObsStudies
-ctt = db.ClinicalTrials_RandTrials
 pbs = db.Publications_ObsStudies
 pbt = db.Publications_RandTrials
 
 # Affichage des widgets pour la date de début et de fin
-start_date = st.date_input("Date de début :", datetime(2020, 1, 1))
-end_date = st.date_input("Date de fin :", datetime(2020, 12, 31))
+start_date = datetime.combine(st.date_input("Date de début :"), datetime.min.time())
+end_date = datetime.combine(st.date_input("Date de fin :"), datetime.min.time())
 
 # Pipeline d'agrégation
 pipeline = [
     {
         "$match": {
             "doctype": {"$ne": "preprint"},
-            #"datePublished": {"$gte": start_date, "$lte": end_date}
+            "datePublished": {"$gte": start_date, "$lte": end_date}
         }
     }, {
         "$unwind": "$concepts"
@@ -40,12 +38,34 @@ pipeline = [
     }
 ]
 
-# Exécuter le pipeline d'agrégation
-results = list(pbt.aggregate(pipeline))
-fichier = pd.DataFrame(results)
-st.dataframe(fichier)
+tab1, tab2 = st.tabs(["Publications_ObsStudies", "Publications_RandTrials"])
 
-# Extraire les colonnes "_id" et "count" de "fichier"
-data = fichier[["_id", "count"]]
-fig = px.bar(data, x="_id", y="count", labels={"_id": "Concepts", "count": "Nombre d'occurrences"})
-st.plotly_chart(fig)
+with tab1:
+    # Exécuter le pipeline d'agrégation
+    results = list(pbs.aggregate(pipeline))
+    if (len(results) != 0):
+        fichier = pd.DataFrame(results)
+        st.dataframe(fichier)
+
+        # Extraire les colonnes "_id" et "count" de "fichier"
+        data = fichier[["_id", "count"]]
+        fig = px.bar(data, x="_id", y="count", labels={"_id": "Concepts", "count": "Nombre d'occurrences"})
+        st.plotly_chart(fig)
+
+    else:
+        st.text("Pas de publications pendant la période choisie. Veuillez changer la période")
+
+with tab2:
+    # Exécuter le pipeline d'agrégation
+    results = list(pbt.aggregate(pipeline))
+    if (len(results) != 0):
+        fichier = pd.DataFrame(results)
+        st.dataframe(fichier)
+
+        # Extraire les colonnes "_id" et "count" de "fichier"
+        data = fichier[["_id", "count"]]
+        fig = px.bar(data, x="_id", y="count", labels={"_id": "Concepts", "count": "Nombre d'occurrences"})
+        st.plotly_chart(fig)
+
+    else:
+        st.text("Pas de publications pendant la période choisie. Veuillez changer la période")

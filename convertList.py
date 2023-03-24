@@ -7,8 +7,6 @@ db = cdb.connexionDB()
 #Acces aux collections
 cts = db.ClinicalTrials_ObsStudies
 ctt = db.ClinicalTrials_RandTrials
-pbs = db.Publications_ObsStudies
-pbt = db.Publications_RandTrials
 
 # Récupération de toutes les données de la collection
 data = cts.find()
@@ -31,8 +29,6 @@ for document in data:
         except json.JSONDecodeError as e:
             print(f"Impossible de convertir la chaîne en liste de dictionnaires pour le document: {e}")
             continue
-
-        print(interventions_str)
 
         # Mise à jour du document avec la liste d'interventions
         cts.update_one({'_id': document['_id']}, {'$set': {'interventions': interventions_list}})
