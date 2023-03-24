@@ -1,4 +1,6 @@
 import datetime
+import streamlit as st
+from datetime import date
 import pymongo
 import pandas
 import connexionDB as cdb
@@ -22,19 +24,35 @@ def find_Different_Type_Phase(col):
 
 def sortByAltmetric(collection):
     #myquery = {'dateInserted' : }
+    current_month = date.today().month
+    current_year = date.today().year
+
+
+
 
     data = []
     db = cdb.connexionDB()
 
     #pipeline = [{'$sort': {'altmetric' : 1, 'timesCited' : 1}}]
 
-    dataframe = collection.find({}).sort("altmetric", -1).sort("timesCited", -1)
+    dataframe = collection.find({}).sort("altmetric", -1)
 
     for doc in dataframe:
         data.append(doc)
 
     all = pandas.DataFrame(data)
-    return all
+
+    all['datePublished'] = pandas.to_datetime(all['datePublished'])
+    #month = all['datePublished'].dt.month
+
+
+    new_all = []
+    for index in all.index:
+        month = all['datePublished'][index].month
+        if current_month == month:
+            new_all.append(all.iloc[index])
+
+    return new_all
 
     """
     db.publis.aggregate([

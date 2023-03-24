@@ -4,7 +4,7 @@ import altmetricFonction as alt
 import connexionDB as cdb
 
 st.title(
-    "Publications du mois courant (ex mai 2020) triées par score altmetric décroissant et départagées par citations décroissantes")
+    "Publications du mois courant triées par score altmetric décroissant")
 tab1, tab2 = st.tabs(["Publications d'Observation", "Publications Aléatoires "])
 
 # Main
@@ -18,13 +18,13 @@ pbt = db.Publications_RandTrials
 
 with tab1:
     fichier = alt.sortByAltmetric(pbs)
-    st.write("Publications triées par Altmetric et départagées par le nombre de fois que la publication a été cité :",
+    st.write("Publications triées par Altmetric :",
              len(fichier))
     st.dataframe(fichier)
 
 
 with tab2:
     fichier = alt.sortByAltmetric(pbt)
-    st.write("Publications triées par Altmetric et départagées par le nombre de fois que la publication a été cité :",
+    st.write("Publications triées par Altmetric :",
              len(fichier))
     st.dataframe(fichier)
