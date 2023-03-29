@@ -1,14 +1,20 @@
 import pandas
 import pymongo
 import datetime
+import connexionDB as cdb
 
+# Connexion à la base de données
+db = cdb.connexionDB()
 
+# Acces aux collections
+cts = db.ClinicalTrials_ObsStudies
+ctt = db.ClinicalTrials_RandTrials
+pbs = db.Publications_ObsStudies
+pbt = db.Publications_RandTrials
 
 def find_All(col):
     list = []
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
+    mycol = db[col]
     for x in mycol.find():
         list.append(x)
     all = pandas.DataFrame(list)
@@ -16,9 +22,6 @@ def find_All(col):
 
 def getAllYear(col):
     year = []
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
     pipeline = [
         {
             "$project":{
@@ -28,7 +31,7 @@ def getAllYear(col):
             }
         }
     ]
-    for x in mycol.aggregate(pipeline):
+    for x in col.aggregate(pipeline):
         year.append(x)
     dataframe = pandas.DataFrame(year)
     dataframe = dataframe.drop_duplicates(['year'])
@@ -41,9 +44,6 @@ def nb_publisher_venueT1(col , date):
     data = []
     start_date = datetime.datetime(date,1,1)
     end_date = datetime.datetime(date,3,31)
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
     pipeline = [
         {
             "$match": {
@@ -62,7 +62,7 @@ def nb_publisher_venueT1(col , date):
             "$limit": 5
         }
     ]
-    dataframe = mycol.aggregate(pipeline)
+    dataframe = col.aggregate(pipeline)
     for doc in dataframe:
         data.append(doc)
     return data
@@ -72,9 +72,6 @@ def nb_publisher_venueT2(col , date):
     data = []
     start_date = datetime.datetime(date,4,1)
     end_date = datetime.datetime(date,6,30)
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
     pipeline = [
         {
             "$match": {
@@ -93,7 +90,7 @@ def nb_publisher_venueT2(col , date):
             "$limit": 5
         }
     ]
-    dataframe = mycol.aggregate(pipeline)
+    dataframe = col.aggregate(pipeline)
     for doc in dataframe:
         data.append(doc)
     return data
@@ -102,9 +99,6 @@ def nb_publisher_venueT3(col , date):
     data = []
     start_date = datetime.datetime(date,7,1)
     end_date = datetime.datetime(date,9,30)
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
     pipeline = [
         {
             "$match": {
@@ -123,7 +117,7 @@ def nb_publisher_venueT3(col , date):
             "$limit": 5
         }
     ]
-    dataframe = mycol.aggregate(pipeline)
+    dataframe = col.aggregate(pipeline)
     for doc in dataframe:
         data.append(doc)
     return data
@@ -133,9 +127,6 @@ def nb_publisher_venueT4(col , date):
     data = []
     start_date = datetime.datetime(date,10,1)
     end_date = datetime.datetime(date,12,31)
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Sae"]
-    mycol = mydb[col]
     pipeline = [
         {
             "$match": {
@@ -154,7 +145,7 @@ def nb_publisher_venueT4(col , date):
             "$limit": 5
         }
     ]
-    dataframe = mycol.aggregate(pipeline)
+    dataframe = col.aggregate(pipeline)
     for doc in dataframe:
         data.append(doc)
     return data
