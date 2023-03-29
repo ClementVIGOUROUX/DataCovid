@@ -3,7 +3,15 @@ import pandas
 import connexionDB as cdb
 
 #SELECT * d'une collection (parametre)
-def find_All(collection):
+def find_All_Observation(collection):
+    result = []
+    for x in collection.find():
+        if(isinstance(x['interventions'], list)):
+            result.append(x)
+    all = pandas.DataFrame(result)
+    return all
+
+def find_All_Aleatoire(collection):
     result = []
     for x in collection.find():
         result.append(x)
@@ -18,7 +26,17 @@ def find_Different_Type_Genre(collection):
     return result
 
 #Permet de recuperer les phase avec un filtre
-def find_Genre_Filtre(collection,param):
+def find_Genre_Filtre_Observation(collection,param):
+    liste = []
+    myquery = {'gender': {'$in': param}}
+    mydoc = collection.find(myquery)
+    for x in mydoc:
+        if(isinstance(x['interventions'], list)):
+            liste.append(x)
+    all = pandas.DataFrame(liste)
+    return all
+
+def find_Genre_Filtre_Aleatoire(collection,param):
     list = []
     myquery = {'gender': {'$in': param}}
     mydoc = collection.find(myquery)
@@ -28,12 +46,20 @@ def find_Genre_Filtre(collection,param):
     return all
 
 #Utilise les 2 fonction d'au dessus pour tout faire
-def find_All_Genre(collection,list):
+def find_All_Genre_Observation(collection,list):
     condition = len(list)
     if (condition == 0):
-        fichier = find_All(collection)
+        fichier = find_All_Observation(collection)
     else:
-        fichier = find_Genre_Filtre(collection,list)
+        fichier = find_Genre_Filtre_Observation(collection,list)
+    return fichier
+
+def find_All_Genre_Aleatoire(collection,list):
+    condition = len(list)
+    if (condition == 0):
+        fichier = find_All_Aleatoire(collection)
+    else:
+        fichier = find_Genre_Filtre_Aleatoire(collection,list)
     return fichier
 
 
