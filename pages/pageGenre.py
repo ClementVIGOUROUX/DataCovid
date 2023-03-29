@@ -3,7 +3,7 @@ import streamlit as st
 import genreFonction as gf
 import connexionDB as cdb
 
-st.title("Petit titre et c'est ok")
+st.title("Essais par genre")
 tab1, tab2 = st.tabs(["Essais d'Observation", "Essais Aleatoire "])
 
 #Main
