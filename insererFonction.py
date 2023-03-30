@@ -1,6 +1,7 @@
 import pandas
-import connexionDB
+import connexionDB as cdb
 import json
+import dataAlterFunction as daf
 
 def verif(file):
     return file.name[-4:] == 'xlsx'
@@ -15,16 +16,18 @@ def fichier_toJson(file):
     return dict
 
 def inserer(dict):
-    db = connexionDB.connexionDB()
+    db = cdb.connexionDB()
     collections = [
-        ("ClinicalTrials_ObsStudies", db.ClinicalTrials_ObsStudies),
-        ("ClinicalTrials_RandTrials", db.ClinicalTrials_RandTrials),
-        ("Publications_ObsStudies", db.Publications_ObsStudies),
-        ("Publications_RandTrials", db.Publications_RandTrials)
+        ("1 - ClinicalTrials_ObsStudies", db.ClinicalTrials_ObsStudies),
+        ("2 - ClinicalTrials_RandTrials", db.ClinicalTrials_RandTrials),
+        ("3 - Publications_ObsStudies", db.Publications_ObsStudies),
+        ("4 - Publications_RandTrials", db.Publications_RandTrials)
     ]
 
     for page, collection in collections:
-        if collection.count_documents({}) == 0:
-            data = json.loads(dict[page])
-            collection.insert_many(data)
-            return
+        data = json.loads(dict[page])
+        collection.insert_many(data)
+
+    daf.alterDatePBS()
+    daf.alterDatePBT()
+    daf.alterDateCTS()

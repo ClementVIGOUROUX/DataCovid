@@ -19,13 +19,10 @@ def find_Different_Type_Phase(col):
     return list
 
 
-def sortByAltmetric(collection):
+def sortByAltmetric(collection, date):
     #myquery = {'dateInserted' : }
-    current_month = date.today().month
-    current_year = date.today().year
-
-
-
+    current_month = date.month
+    current_year = date.year
 
     data = []
     db = cdb.connexionDB()
@@ -46,7 +43,8 @@ def sortByAltmetric(collection):
     new_all = []
     for index in all.index:
         month = all['datePublished'][index].month
-        if current_month == month:
+        year = all['datePublished'][index].year
+        if current_month == month and current_year == year:
             new_all.append(all.iloc[index])
 
     return new_all

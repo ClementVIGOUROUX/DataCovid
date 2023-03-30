@@ -109,15 +109,20 @@ with tab1:
              len(fichier))
     st.dataframe(fichier)
 
-with tab2:
-    liste =[]
-    results = ctt.find()
-    for x in results:
-        liste.append(x)
-    fichier = pd.DataFrame(liste)
-    st.write("Nombre d'essais :",
-             len(fichier))
-    st.dataframe(fichier)
+    # Pipeline d'agrégation
+    pipeline = [
+        {
+            "$group": {
+                "_id": {"$year":"$date"},
+                "count": {"$sum": 1}
+            }
+        }
+    ]
+
+    results = list(cts.aggregate(pipeline))
+    if (len(results) != 0):
+        fichier = pd.DataFrame(results)
+        st.dataframe(fichier)
 
 with tab3:
     liste =[]
@@ -129,6 +134,21 @@ with tab3:
              len(fichier))
     st.dataframe(fichier)
 
+    # Pipeline d'agrégation
+    pipeline = [
+        {
+            "$group": {
+                "_id": "$year",
+                "count": {"$sum": 1}
+            }
+        }
+    ]
+
+    results = list(pbs.aggregate(pipeline))
+    if (len(results) != 0):
+        fichier = pd.DataFrame(results)
+        st.dataframe(fichier)
+
 with tab4:
     liste =[]
     results = pbt.find()
@@ -136,5 +156,30 @@ with tab4:
         liste.append(x)
     fichier = pd.DataFrame(liste)
     st.write("Nombre de publications :",
+             len(fichier))
+    st.dataframe(fichier)
+
+    # Pipeline d'agrégation
+    pipeline = [
+        {
+            "$group": {
+                "_id": "$year",
+                "count": {"$sum": 1}
+            }
+        }
+    ]
+
+    results = list(pbt.aggregate(pipeline))
+    if (len(results) != 0):
+        fichier = pd.DataFrame(results)
+        st.dataframe(fichier)
+
+with tab2:
+    liste =[]
+    results = ctt.find()
+    for x in results:
+        liste.append(x)
+    fichier = pd.DataFrame(liste)
+    st.write("Nombre d'essais :",
              len(fichier))
     st.dataframe(fichier)

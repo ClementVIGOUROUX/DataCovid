@@ -34,6 +34,7 @@ for document in data:
                 interventions_list = json.loads(interventions_str)
             except json.JSONDecodeError as e:
                 print(f"Impossible de convertir la chaîne en liste de dictionnaires pour le document: {e}")
+                cts.delete_one({'_id': document['_id']})
                 continue
 
             # Mise à jour du document avec la liste d'interventions

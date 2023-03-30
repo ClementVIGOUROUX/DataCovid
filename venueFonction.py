@@ -57,8 +57,6 @@ def nb_publisher_venueT1(col , date):
             }
         }, {
             "$sort": {"count": -1},
-        }, {
-            "$limit": 5
         }
     ]
     dataframe = col.aggregate(pipeline)
