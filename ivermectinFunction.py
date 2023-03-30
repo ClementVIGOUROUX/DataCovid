@@ -1,14 +1,13 @@
 import pandas as pd
-import re
+import streamlit as st
 
-def find_ivermectin_related(collection):
+def find_ivermectin_related(collection, search_term):
     ivermectin_docs = []
-    search_term = re.compile('ivermectin', re.IGNORECASE)
     match collection.name:
         case "ClinicalTrials_ObsStudies" | "ClinicalTrials_RandTrials":
-            myquery = {"$or": [{"interventions": search_term},{"title": search_term},{"abstract": search_term}]}
+            myquery = {"$or": [{"interventions": {"$regex": search_term, "$options": "i"}},{"title": {"$regex": search_term, "$options": "i"}},{"abstract": {"$regex": search_term, "$options": "i"}}]}
         case "Publications_RandTrials":
-            myquery = {"$or": [{"concepts": search_term},{"meshTerms": search_term},{"title": search_term}]}
+            myquery = {"$or": [{"concepts": {"$regex": search_term, "$options": "i"}},{"meshTerms": {"$regex": search_term, "$options": "i"}},{"title": search_term}]}
         case _:
             myquery = {}
     mydoc = collection.find(myquery)

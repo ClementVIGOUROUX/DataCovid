@@ -103,3 +103,9 @@ def alterDatePBT():
     }
     ]
     )
+
+alterCircleToCommas()
+alterDateCTS()
+alterDateCTT()
+alterDatePBS()
+alterDatePBT()
