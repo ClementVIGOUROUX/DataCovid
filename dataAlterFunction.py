@@ -85,7 +85,7 @@ def alterDatePBS():
 
 def alterDatePBT():
     db = cdb.connexionDB()
-    collection = db.Publications_ObsStudies
+    collection = db.Publications_RandTrials
     collection.update_many(
         {},
         [

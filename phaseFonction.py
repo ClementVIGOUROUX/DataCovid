@@ -1,14 +1,6 @@
-import pymongo
 import pandas
-import connexionDB
-def find_All_Observation(col):
-    liste = []
-    for x in col.find():
-        liste.append(x)
-    all = pandas.DataFrame(liste)
-    return all
 
-def find_All_Aleatoire(col):
+def find_All(col):
     liste = []
     for x in col.find():
         liste.append(x)
@@ -23,7 +15,7 @@ def find_Different_Type_Phase(col):
     return list
 
 #permet de recuperer les phase avec un filtre
-def find_Phase_Filtre_Observation(col,param):
+def find_Phase_Filtre(col,param):
     liste = []
     myquery = {'phase': {'$in': param}}
     mydoc = col.find(myquery)
@@ -31,35 +23,15 @@ def find_Phase_Filtre_Observation(col,param):
         liste.append(x)
     all = pandas.DataFrame(liste)
     return all
-
-def find_Phase_Filtre_Aleatoire(col,param):
-    liste = []
-    myquery = {'phase': {'$in': param}}
-    mydoc = col.find(myquery)
-    for x in mydoc:
-        liste.append(x)
-    all = pandas.DataFrame(liste)
-    return all
-
-
 
 #utilise les 2 fonction d'au dessus pour tout faire
-def find_All_Phase_Observation(col,list):
+def find_All_Phase(col,list):
     condition = len(list)
     if (condition == 0):
-        fichier = find_All_Observation(col)
+        fichier = find_All(col)
     else:
-        fichier = find_Phase_Filtre_Observation(col,list)
+        fichier = find_Phase_Filtre(col,list)
     return fichier
-
-def find_All_Phase_Aleatoire(col,list):
-    condition = len(list)
-    if (condition == 0):
-        fichier = find_All_Aleatoire(col)
-    else:
-        fichier = find_Phase_Filtre_Aleatoire(col,list)
-    return fichier
-
 
 def count_all_Phase(col,list):
     dict = {}
