@@ -5,10 +5,10 @@ import plotly.express as px
 import plotly.figure_factory as ff
 import connexionDB as cdb
 
-#Main
+# Connexion à la base de donnees
 db = cdb.connexionDB()
 
-#Acces aux collections
+# Acces aux collections
 cts = db.ClinicalTrials_ObsStudies
 ctt = db.ClinicalTrials_RandTrials
 pbs = db.Publications_ObsStudies
@@ -74,7 +74,6 @@ with st.container():
             st.plotly_chart(fig2)
 
 with st.container():
-    st.header("erfgfdrtgfdg")
     col6, col7,col8 = st.columns(3)
     with col6:
         nbListe = [total1, total2, total3, total4]

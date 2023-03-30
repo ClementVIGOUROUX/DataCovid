@@ -11,8 +11,8 @@ tab1, tab2 = st.tabs(["Publications d'Observation", "Publications Aléatoires "]
 db = cdb.connexionDB()
 
 # Acces aux collections
-cts = "db.ClinicalTrials_ObsStudies"
-ctt = "db.ClinicalTrials_RandTrials"
+cts = db.ClinicalTrials_ObsStudies
+ctt = db.ClinicalTrials_RandTrials
 pbs = db.Publications_ObsStudies
 pbt = db.Publications_RandTrials
 
