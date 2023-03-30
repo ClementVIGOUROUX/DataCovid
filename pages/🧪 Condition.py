@@ -18,21 +18,11 @@ tab1, tab2 = st.tabs(["ClinicalTrials_ObsStudies", "ClinicalTrials_RandTrials"])
 query = {"conditions": {"$regex": mot, "$options": "i"}}
 
 with tab1:
-    liste =[]
     results = cts.find(query)
-    for x in results:
-        if(isinstance(x['interventions'], list)):
-            liste.append(x)
-    fichier = pd.DataFrame(liste)
-    if not fichier.empty:
-        st.dataframe(fichier)
-    else:
-        st.write("Aucun essai avec cette condition")
+    fichier = pd.DataFrame(results)
+    st.dataframe(fichier)
 
 with tab2:
     results = ctt.find(query)
     fichier = pd.DataFrame(results)
-    if not fichier.empty:
-        st.dataframe(fichier)
-    else:
-        st.write("Aucun essai avec cette condition")
+    st.dataframe(fichier)

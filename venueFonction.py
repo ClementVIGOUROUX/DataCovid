@@ -1,5 +1,4 @@
 import pandas
-import pymongo
 import datetime
 import connexionDB as cdb
 

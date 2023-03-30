@@ -6,7 +6,6 @@ db = cdb.connexionDB()
 
 #Acces aux collections
 cts = db.ClinicalTrials_ObsStudies
-ctt = db.ClinicalTrials_RandTrials
 
 # Récupération de toutes les données de la collection
 data = cts.find()

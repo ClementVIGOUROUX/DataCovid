@@ -1,4 +1,3 @@
-import pymongo
 import pandas
 import connexionDB as cdb
 
@@ -6,8 +5,7 @@ import connexionDB as cdb
 def find_All_Observation(collection):
     result = []
     for x in collection.find():
-        if(isinstance(x['interventions'], list)):
-            result.append(x)
+        result.append(x)
     all = pandas.DataFrame(result)
     return all
 
@@ -31,8 +29,7 @@ def find_Genre_Filtre_Observation(collection,param):
     myquery = {'gender': {'$in': param}}
     mydoc = collection.find(myquery)
     for x in mydoc:
-        if(isinstance(x['interventions'], list)):
-            liste.append(x)
+         liste.append(x)
     all = pandas.DataFrame(liste)
     return all
 

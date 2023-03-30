@@ -4,8 +4,7 @@ import connexionDB
 def find_All_Observation(col):
     liste = []
     for x in col.find():
-        if (isinstance(x['interventions'], list)):
-            liste.append(x)
+        liste.append(x)
     all = pandas.DataFrame(liste)
     return all
 
@@ -29,8 +28,7 @@ def find_Phase_Filtre_Observation(col,param):
     myquery = {'phase': {'$in': param}}
     mydoc = col.find(myquery)
     for x in mydoc:
-        if (isinstance(x['interventions'], list)):
-            liste.append(x)
+        liste.append(x)
     all = pandas.DataFrame(liste)
     return all
 
