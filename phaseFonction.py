@@ -1,11 +1,10 @@
-import pymongo
 import pandas
-import connexionDB
+
 def find_All(col):
-    list = []
+    liste = []
     for x in col.find():
-        list.append(x)
-    all = pandas.DataFrame(list)
+        liste.append(x)
+    all = pandas.DataFrame(liste)
     return all
 
 #permet de recuperer les differents types de phases dans une collection
@@ -17,15 +16,13 @@ def find_Different_Type_Phase(col):
 
 #permet de recuperer les phase avec un filtre
 def find_Phase_Filtre(col,param):
-    list = []
+    liste = []
     myquery = {'phase': {'$in': param}}
     mydoc = col.find(myquery)
     for x in mydoc:
-        list.append(x)
-    all = pandas.DataFrame(list)
+        liste.append(x)
+    all = pandas.DataFrame(liste)
     return all
-
-
 
 #utilise les 2 fonction d'au dessus pour tout faire
 def find_All_Phase(col,list):
@@ -35,8 +32,6 @@ def find_All_Phase(col,list):
     else:
         fichier = find_Phase_Filtre(col,list)
     return fichier
-
-
 
 def count_all_Phase(col,list):
     dict = {}

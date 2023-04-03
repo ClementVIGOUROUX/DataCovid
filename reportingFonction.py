@@ -1,4 +1,3 @@
-import pymongo
 import connexionDB as cdb
 import pandas as pd
 import re

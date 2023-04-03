@@ -1,6 +1,14 @@
-import pymongo
 import pandas
 import connexionDB as cdb
+
+#Connexion à la base de données
+db = cdb.connexionDB()
+
+#Acces aux collections
+cts = db.ClinicalTrials_ObsStudies
+ctt = db.ClinicalTrials_RandTrials
+pbs = db.Publications_ObsStudies
+pbt = db.Publications_RandTrials
 
 #SELECT * d'une collection (parametre)
 def find_All(collection):
@@ -19,12 +27,12 @@ def find_Different_Type_Genre(collection):
 
 #Permet de recuperer les phase avec un filtre
 def find_Genre_Filtre(collection,param):
-    list = []
+    liste = []
     myquery = {'gender': {'$in': param}}
     mydoc = collection.find(myquery)
     for x in mydoc:
-        list.append(x)
-    all = pandas.DataFrame(list)
+         liste.append(x)
+    all = pandas.DataFrame(liste)
     return all
 
 #Utilise les 2 fonction d'au dessus pour tout faire
@@ -36,17 +44,8 @@ def find_All_Genre(collection,list):
         fichier = find_Genre_Filtre(collection,list)
     return fichier
 
-
-#Main
-db = cdb.connexionDB()
-
-#Acces aux collections
-cts = db.ClinicalTrials_ObsStudies
-ctt = db.ClinicalTrials_RandTrials
-pbs = db.Publications_ObsStudies
-pbt = db.Publications_RandTrials
-
-print(find_Different_Type_Genre(cts))
-#print(find_All(pbt))
-#print(find_Genre_Filtre(cts, ["Female"]))
-#print(find_All_Genre(cts, ["Male"]))
+def count_all_Genre(col,list):
+    dict = {}
+    for i in range(len(list)):
+        dict[list[i]] = col.count_documents({'gender':list[i]})
+    return dict

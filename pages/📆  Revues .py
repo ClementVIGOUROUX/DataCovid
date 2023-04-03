@@ -24,22 +24,22 @@ with tabP1:
         t1 = iff.nb_publisher_venueT1(pbs,phase)
         st.dataframe(t1)
 
-        fig = px.bar(t1, x="_id", y="count", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
+        fig = px.bar(t1, x="_id", y="count", title="Nombre d'occurence des concepts par venue trimestre 1", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
         st.plotly_chart(fig)
     with tab2 :
         t2 = iff.nb_publisher_venueT2(pbs, phase)
         st.dataframe(t2)
-        fig = px.bar(t2, x="_id", y="count", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
+        fig = px.bar(t2, x="_id", y="count", title="Nombre d'occurence des concepts par venue trimestre 2", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
         st.plotly_chart(fig)
     with tab3 :
         t3 = iff.nb_publisher_venueT3(pbs, phase)
         st.dataframe(t3)
-        fig = px.bar(t3, x="_id", y="count", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
+        fig = px.bar(t3, x="_id", y="count", title="Nombre d'occurence des concepts par venue trimestre 3", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
         st.plotly_chart(fig)
     with tab4:
         t4 = iff.nb_publisher_venueT4(pbs, phase)
         st.dataframe(t4)
-        fig = px.bar(t4, x="_id", y="count", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
+        fig = px.bar(t4, x="_id", y="count", title="Nombre d'occurence des concepts par venue trimestre 4", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
         st.plotly_chart(fig)
 
 
@@ -49,22 +49,22 @@ with tabP2 :
         t1 = iff.nb_publisher_venueT1(pbt, phase)
         st.dataframe(t1)
 
-        fig = px.bar(t1, x="_id", y="count", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
+        fig = px.bar(t1, x="_id", y="count", title="Nombre d'occurence des concepts par venue trimestre 1", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
         st.plotly_chart(fig)
     with tab2:
         t2 = iff.nb_publisher_venueT2(pbt, phase)
         st.dataframe(t2)
-        fig = px.bar(t2, x="_id", y="count", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
+        fig = px.bar(t2, x="_id", y="count", title="Nombre d'occurence des concepts par venue trimestre 2", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
         st.plotly_chart(fig)
     with tab3:
         t3 = iff.nb_publisher_venueT3(pbt, phase)
         st.dataframe(t3)
-        fig = px.bar(t3, x="_id", y="count", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
+        fig = px.bar(t3, x="_id", y="count", title="Nombre d'occurence des concepts par venue trimestre 3", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
         st.plotly_chart(fig)
     with tab4:
         t4 = iff.nb_publisher_venueT4(pbt, phase)
         st.dataframe(t4)
-        fig = px.bar(t4, x="_id", y="count", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
+        fig = px.bar(t4, x="_id", y="count", title="Nombre d'occurence des concepts par venue trimestre 4", labels={"_id": "Venue", "count": "Nombre d'occurrences"})
         st.plotly_chart(fig)
 
 

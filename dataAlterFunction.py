@@ -45,21 +45,37 @@ def alterDateCTT():
     db = cdb.connexionDB()
     collection = db.ClinicalTrials_RandTrials
     collection.update_many(
-        {},
+        {
+            "$expr": {
+                "$eq": [{"$strLenCP": "$dateInserted"}, 10]
+            }
+        },
         [
             {
-    "$set": {
-        "dateInserted": {
-    "$toDate": "$dateInserted"}
-    }
-    },
-    {
-    "$set": {
-        "date": {
-    "$toDate": "$date"}
-    }
-    }
-    ]
+                "$set": {
+                    "dateInserted": {
+                        "$toDate": "$dateInserted"
+                    }
+                }
+            }
+        ]
+    )
+
+    collection.update_many(
+        {
+            "$expr": {
+                "$eq": [{"$strLenCP": "$date"}, 10]
+            }
+        },
+        [
+            {
+                "$set": {
+                    "date": {
+                        "$toDate": "$date"
+                    }
+                }
+            }
+        ]
     )
 
 def alterDatePBS():
@@ -85,7 +101,7 @@ def alterDatePBS():
 
 def alterDatePBT():
     db = cdb.connexionDB()
-    collection = db.Publications_ObsStudies
+    collection = db.Publications_RandTrials
     collection.update_many(
         {},
         [
@@ -103,3 +119,5 @@ def alterDatePBT():
     }
     ]
     )
+
+alterDatePBS()
